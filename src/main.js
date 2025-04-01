@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createProduct(produit) {
         const li = document.createElement('li');
-        li.classList.add('bg-white', 'p-2', 'flex', 'flex-col', 'gap-2', 'border', 'border-gray-300', 'rounded-lg', 'w-1/5', 'h-52', 'justify-between');
+        li.classList.add('bg-white', 'p-2', 'flex', 'flex-col', 'gap-2', 'border', 'border-gray-300', 'rounded-lg', 'w-full' ,'md:w-1/5', 'h-52', 'justify-between');
         const title = document.createElement('h2');
         title.classList.add('text-lg', 'font-bold', 'text-center');
         const quantity = document.createElement('span');
@@ -72,14 +72,24 @@ document.addEventListener('DOMContentLoaded', () => {
         addToBasket.addEventListener('click', () => {
             const basket = JSON.parse(localStorage.getItem('basket')) || [];
             const product = basket.find((p) => p.nom === produit.nom);
+            let quantityStock;
             if (!product) {
                 basket.push({
                     nom: produit.nom,
                     price: produit.prix_unitaire,
                     quantity: 1,
                 });
+                quantityStock = 1;
             } else {
                 product.quantity += 1;
+                quantityStock = product.quantity;
+            }
+            quantity.innerHTML = `<span class="font-bold">Quantité en stock</span>: ${produit.quantite_stock - quantityStock}`;
+            if (quantityStock === produit.quantite_stock) {
+                addToBasket.disabled = true;
+                addToBasket.classList.remove('bg-blue-500', 'hover:bg-blue-700');
+                addToBasket.classList.add('bg-gray-500');
+                li.classList.add('opacity-50');
             }
             localStorage.setItem('basket', JSON.stringify(basket));
         });
@@ -89,7 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
         addToBasket.dataset.id = produit.nom;
 
         title.innerHTML = `<span class="font-bold">${produit.nom}</span>`;
-        quantity.innerHTML = `<span class="font-bold">Quantité en stock</span>: ${produit.quantite_stock}`;
+
+        const basket = JSON.parse(localStorage.getItem('basket')) || [];
+        let quantityStock = produit.quantite_stock;
+        const product = basket.find((p) => p.nom === produit.nom);
+        quantityStock -= product ? product.quantity : 0;
+
+        if (quantityStock <= 0) {
+            addToBasket.disabled = true;
+            addToBasket.classList.remove('bg-blue-500', 'hover:bg-blue-700', 'hover:cursor-pointer');
+            addToBasket.classList.add('bg-gray-500');
+            li.classList.add('opacity-50');
+        }
+
+        quantity.innerHTML = `<span class="font-bold">Quantité en stock</span>: ${quantityStock}`;
         price.innerHTML = `<span class="font-bold">Prix unitaire</span>: ${produit.prix_unitaire} €`;
 
         li.appendChild(title);
