@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         price.textContent = product.price;
         totalPrice.textContent = parseFloat(product.price * product.quantity).toFixed(2);
         remove.textContent = 'Supprimer';
-        remove.classList.add('bg-red-500', 'text-white', 'p-2', 'rounded-lg');
+        remove.classList.add('bg-red-500', 'text-white', 'p-2', 'rounded-lg', 'hover:bg-red-700', 'cursor-pointer');
 
         quantity.addEventListener('change', (event) => {
             product.quantity = parseInt(event.target.value, 10);
