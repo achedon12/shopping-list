@@ -44,21 +44,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const elements = listeProduits.querySelectorAll('li');
         const value = event.target.value.toLowerCase();
 
+        let count = 0;
         elements.forEach((element) => {
             const title = element.querySelector('h2').textContent.toLowerCase();
             if (title.includes(value)) {
                 element.style.display = 'inherit';
+                count++;
             } else {
                 element.style.display = 'none';
             }
         });
+
+        compteurProduits.textContent = count + ' produits';
     });
 
     compteurProduits.textContent = liste.length + ' produits';
 
     function createProduct(produit) {
         const li = document.createElement('li');
-        li.classList.add('bg-white', 'p-2', 'flex', 'flex-col', 'gap-2', 'border', 'border-gray-300', 'rounded-lg', 'w-1/5');
+        li.classList.add('bg-white', 'p-2', 'flex', 'flex-col', 'gap-2', 'border', 'border-gray-300', 'rounded-lg', 'w-1/5', 'h-52', 'justify-between');
         const title = document.createElement('h2');
         title.classList.add('text-lg', 'font-bold', 'text-center');
         const quantity = document.createElement('span');

@@ -12,13 +12,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const quantity = document.createElement('td');
         const price = document.createElement('td');
         const totalPrice = document.createElement('td');
+        const actions = document.createElement('td');
         const remove = document.createElement('button');
 
+        tr.classList.add('border-b', 'border-gray-300');
+
+        name.classList.add('p-2', 'text-center');
+        quantity.classList.add('p-2', 'text-center');
+        price.classList.add('p-2', 'text-center');
+        totalPrice.classList.add('p-2', 'text-center');
+        actions.classList.add('p-2', 'text-center');
+
         name.textContent = product.nom;
-        quantity.innerHTML = `<input type="number" value="${product.quantity}" />`;
+        quantity.innerHTML = `<input type="number" class="w-full text-center" value="${product.quantity}" />`;
         price.textContent = product.price;
         totalPrice.textContent = parseFloat(product.price * product.quantity).toFixed(2);
         remove.textContent = 'Supprimer';
+        remove.classList.add('bg-red-500', 'text-white', 'p-2', 'rounded-lg');
 
         quantity.addEventListener('change', (event) => {
             product.quantity = parseInt(event.target.value, 10);
@@ -41,7 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tr.appendChild(price);
         tr.appendChild(quantity);
         tr.appendChild(totalPrice);
-        tr.appendChild(remove);
+
+        actions.appendChild(remove);
+        tr.appendChild(actions);
 
         tableBody.appendChild(tr);
 
