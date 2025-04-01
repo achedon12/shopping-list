@@ -1,0 +1,1 @@
+document.getElementById('copyright-date').textContent = new Date().getFullYear();
