@@ -37,6 +37,12 @@ npm run dev
 
 > /!\ **Warning**: The unit tests are not yet implemented.
 
+## Branches
+
+- `main`: The main branch.
+- `develop`: The development branch.
+- `Etape-*`: Different steps of the project.
+
 ## Project Structure
 
 - `public/`: Contains the static files.
