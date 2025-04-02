@@ -1,11 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => {
+export const afficherTableau = () => {
     const tableBody = document.getElementById('liste-course-body');
-    const resetList = document.getElementById('vider-liste');
-    const totalAmount = document.getElementById('total-general');
     const localStorage = window.localStorage;
-    const basket = JSON.parse(localStorage.getItem('basket')) || [];
-    let total = 0;
+    let basket = JSON.parse(localStorage.getItem('basket')) || [];
 
+    tableBody.innerHTML = '';
     basket.forEach((product) => {
         const tr = document.createElement('tr');
         const name = document.createElement('td');
@@ -14,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalPrice = document.createElement('td');
         const actions = document.createElement('td');
         const remove = document.createElement('button');
+        const resetList = document.getElementById('vider-liste');
 
         tr.classList.add('border-b', 'border-gray-300');
 
@@ -30,21 +29,24 @@ document.addEventListener('DOMContentLoaded', () => {
         remove.textContent = 'Supprimer';
         remove.classList.add('bg-red-500', 'text-white', 'p-2', 'rounded-lg', 'hover:bg-red-700', 'cursor-pointer');
 
-        quantity.addEventListener('change', (event) => {
+        quantity.querySelector('input').addEventListener('change', (event) => {
             product.quantity = parseInt(event.target.value, 10);
             localStorage.setItem('basket', JSON.stringify(basket));
-            totalPrice.textContent = parseFloat(product.price * product.quantity).toFixed(2);
-            total = basket.reduce((acc, p) => parseFloat(acc + p.price * p.quantity).toFixed(2), 0);
-            totalAmount.textContent = total;
+            afficherTotal();
+            afficherTableau();
         });
 
         remove.addEventListener('click', () => {
-            const index = basket.findIndex((p) => p.nom === product.nom);
-            basket.splice(index, 1);
+            basket = basket.filter((p) => p.nom !== product.nom);
             localStorage.setItem('basket', JSON.stringify(basket));
-            tr.remove();
-            total -= parseFloat(product.price * product.quantity).toFixed(2);
-            totalAmount.textContent = total;
+            afficherTotal();
+            afficherTableau();
+        });
+
+        resetList.addEventListener('click', () => {
+            localStorage.removeItem('basket');
+            afficherTotal();
+            afficherTableau();
         });
 
         tr.appendChild(name);
@@ -56,15 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
         tr.appendChild(actions);
 
         tableBody.appendChild(tr);
-
-        total +=  parseFloat(product.price * product.quantity).toFixed(2);
     });
+};
 
+export const afficherTotal = () => {
+    const totalAmount = document.getElementById('total-general');
+    const localStorage = window.localStorage;
+    let basket = JSON.parse(localStorage.getItem('basket')) || [];
+
+    const total = basket.reduce((acc, product) => acc + product.price * product.quantity, 0);
     totalAmount.textContent = parseFloat(total).toFixed(2);
+};
 
-    resetList.addEventListener('click', () => {
-        localStorage.removeItem('basket');
-        tableBody.innerHTML = '';
-        totalAmount.textContent = '0.00';
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    afficherTotal();
+    afficherTableau();
 });
