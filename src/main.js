@@ -3,10 +3,11 @@ let compteurProduits;
 let tri;
 let resetFiltres;
 let recherche;
+let products;
 
 document.addEventListener('DOMContentLoaded', async () => {
     initDOMElements(document);
-    let products = await fetchProducts();
+    products = await fetchProducts();
     afficherProduits(products);
     ajouterEcouteurs();
 });
