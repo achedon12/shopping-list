@@ -35,8 +35,6 @@ npm run dev
 
 ## Unit Tests
 
-> /!\ **Warning**: The unit tests are not yet implemented.
-
 ## Branches
 
 - `main`: The main branch.
