@@ -44,6 +44,11 @@ jobs:
       - name: Install Cypress
         run: npm install cypress
 
+      - name: Start the application
+        run: npm start &
+        env:
+          CI: false
+
       - name: Run functional tests with Cypress
         run: npx cypress run
 
