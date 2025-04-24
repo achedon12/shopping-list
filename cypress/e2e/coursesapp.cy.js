@@ -1,6 +1,6 @@
 describe('shoppingList index page tests', () => {
     beforeEach(() => {
-        cy.visit('/index.html');
+        cy.visit('/shopping-list/index.html');
     })
 
     it('should load index.html', () => {
@@ -91,12 +91,12 @@ describe('shoppingList index page tests', () => {
 describe('shoppingList liste page tests', () => {
     beforeEach(() => {
         cy.clearAllLocalStorage();
-        cy.visit('/index.html');
+        cy.visit('/shopping-list/index.html');
         cy.get('[data-id=Pomme]').click();
         cy.get('[data-id=Pomme]').click();
         cy.get('[data-id=Sel]').click();
         cy.get('[data-id=Carotte]').click();
-        cy.visit('/liste.html');
+        cy.visit('/shopping-list/liste.html');
 
     });
 

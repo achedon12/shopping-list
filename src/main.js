@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 export const fetchProducts = async () => {
     try {
-        const response = await fetch('/liste_produits_quotidien.json');
+        const response = await fetch('/shopping-list/liste_produits_quotidien.json');
         return await response.json();
     } catch (error) {
         console.error('Error fetching products:', error);
