@@ -1,9 +1,6 @@
 import { defineConfig } from 'vite'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { resolve } from 'node:path'
 import tailwindcss from '@tailwindcss/vite'
-
-const dirname = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
     base: '/shopping-list/',
@@ -11,7 +8,7 @@ export default defineConfig({
         outDir: 'dist',
         rollupOptions: {
             input: {
-                main: resolve(dirname, 'index.html'),
+                main: resolve(__dirname, 'index.html'),
                 list: resolve(__dirname, 'list.html'),
             },
         }
