@@ -9,7 +9,6 @@
     "preview": "vite preview",
     "test": "jest"
   },
-  "homepage": "https://achedon12.github.io/shopping-list/",
   "devDependencies": {
     "@babel/core": "^7.26.10",
     "@babel/preset-env": "^7.26.9",
